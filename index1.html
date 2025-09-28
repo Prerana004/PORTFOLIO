@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prerana • Software Engineer & AI Developer</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' stroke='%23a855f7' stroke-width='8' fill='none'/%3E%3Ctext x='50' y='55' font-family='Exo 2, sans-serif' font-size='50' fill='%23a855f7' text-anchor='middle' dominant-baseline='middle'%3EP%3C/text%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=Rajdhani:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+</head>
+<body>
+    <div id="entry-screen">
+        <div id="entry-main-content" class="opacity-0 px-4 w-full max-w-2xl flex flex-col">
+            <div id="greeting-line" class="relative text-center">
+                <p class="text-2xl md:text-3xl text-gray-400 font-mono min-h-[40px]"></p>
+            </div>
+            <div id="main-bio" class="opacity-0 text-left">
+                <div class="mt-8 text-lg md:text-xl text-purple-300 mx-auto leading-relaxed font-light">
+                    <p class="font-medium text-white text-3xl mb-4 name-glow bio-line">I’m Prerana</p>
+                    <p class="bio-line">CS student by day, wannabe astronaut by night, and a proud space nerd 24/7.</p>
+                    <p class="mt-2 bio-line">I design AI projects, dig into backends, and catch space signals through Python.</p>
+                    <p class="mt-4 italic text-purple-400/80 bio-line">Practicality is a gravity I’ve learned to resist — it usually takes a backseat.</p>
+                    <p class="italic text-purple-400/80 bio-line">What excites me is what survives.</p>
+                    <p class="mt-4 bio-line">Somewhere out there, probably drifting between space signals and screaming GPUs.</p>
+                    <p class="mt-2 bio-line">Earthbound for now… but if your world has good vibes, Wi‑Fi, and maybe snacks, I’ll gladly warp over.</p>
+                    <p class="mt-4 font-bold bio-line">P.S. Just beam me up.</p>
+                </div>
+                <button id="init-button" class="mt-8 inline-block px-8 py-3 rounded-full uppercase tracking-widest text-lg font-semibold cta-button opacity-0">
+                    Begin Voyage
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="custom-cursor"><div id="cursor-dot"></div></div>
+    
+    <header id="page-header">
+        <div class="font-bold text-xl tracking-wider">P.</div>
+        <nav class="flex gap-4">
+            <a href="#hero-section">Start</a>
+            <a href="#projects-section">Projects</a>
+            <a href="#skills-section">Skill Constellation</a>
+            <a href="#experience-section">Experience</a>
+            <a href="#contact-section">Contact</a>
+        </nav>
+    </header>
+
+    <canvas id="main-canvas"></canvas>
+    
+    <div id="scroll-wrapper" class="relative">
+        <section id="hero-section" class="h-screen w-full relative z-10"></section>
+        
+        <section id="projects-section" class="content-section justify-start">
+            <div class="content-box">
+                <div class="grid grid-cols-12 gap-8 h-full">
+                    <div class="col-span-12 md:col-span-4">
+                        <h2 class="text-4xl font-bold mb-6 uppercase tracking-wider text-purple-300 name-glow">Projects</h2>
+                        <div id="project-list" class="overflow-y-auto pr-4 space-y-2 max-h-[60vh]"></div>
+                    </div>
+                    <div class="col-span-12 md:col-span-8 flex flex-col">
+                        <div id="project-visual" class="h-48 bg-black/20 rounded-lg mb-4 relative overflow-hidden border border-purple-500/20">
+                            <canvas id="project-canvas"></canvas>
+                        </div>
+                        <div class="overflow-hidden"><h3 id="project-title" class="text-3xl font-bold text-purple-300"></h3></div>
+                        <div id="project-tags" class="flex flex-wrap gap-2 my-2"></div>
+                        <div id="project-stats" class="grid grid-cols-3 gap-4 my-4"></div>
+                        <div class="overflow-hidden"><p id="project-description" class="text-gray-400"></p></div>
+                        <div id="project-links" class="flex gap-4 mt-auto pt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills-section" class="content-section justify-end">
+            <div class="content-box text-center">
+                <h2 class="text-4xl font-bold mb-4 uppercase tracking-wider text-purple-300 name-glow">Skill Constellation</h2>
+                <p class="text-center text-gray-400 mb-4">Hover over a node to see its connections.</p>
+                <div id="skills-container" class="relative w-full h-[50vh]">
+                   <canvas id="skills-canvas" class="absolute top-0 left-0 w-full h-full"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience-section" class="content-section justify-start">
+            <div class="content-box">
+                <h2 class="text-4xl font-bold mb-6 uppercase tracking-wider text-purple-300 name-glow">Experience</h2>
+                <div class="overflow-y-auto pr-4 max-h-[60vh]">
+                    <div class="border-l-2 border-purple-500/50 pl-6 space-y-10">
+                        <div class="relative">
+                            <div class="absolute -left-[34px] top-1 h-4 w-4 rounded-full bg-purple-400 shadow-[0_0_10px_theme(colors.purple.400)]"></div>
+                            <p class="text-gray-400">02/2025 – 04/2025</p>
+                            <h3 class="text-2xl font-bold text-purple-300">AI Research Intern</h3>
+                            <p class="text-lg text-gray-300">Coding Jrs.</p>
+                            <ul class="mt-2 list-disc list-inside text-gray-400 space-y-1">
+                                <li>Explored state-of-the-art LLMs to design and evaluate Copilot-style AI workflows, enhancing developer productivity through prompt engineering and model comparisons.</li>
+                                <li>Built prototypes, documented findings, and contributed to AI integration strategies for enterprise software pipelines.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact-section" class="content-section justify-center">
+            <div class="w-full max-w-xl text-center">
+                <h2 class="text-4xl font-bold mb-4 uppercase tracking-wider text-purple-300 name-glow">Let's Connect</h2>
+                <p class="text-gray-400 mb-8 max-w-2xl mx-auto">Have a project in mind or an opportunity to discuss? My inbox is always open. Let's build something great together.</p>
+                <form id="contact-form-main" class="space-y-6 max-w-xl mx-auto">
+                    <input type="text" name="name" class="w-full p-3 bg-black/30 border-b border-gray-500 focus:border-purple-400 outline-none transition-colors" placeholder="Name" required>
+                    <input type="email" name="email" class="w-full p-3 bg-black/30 border-b border-gray-500 focus:border-purple-400 outline-none transition-colors" placeholder="Email" required>
+                    <textarea name="message" rows="4" class="w-full p-3 bg-black/30 border-b border-gray-500 focus:border-purple-400 outline-none transition-colors" placeholder="Message" required></textarea>
+                    <button type="submit" class="w-full px-10 py-3 rounded-md uppercase tracking-wider font-semibold cta-button">Send Message</button>
+                </form>
+            </div>
+        </section>
+        
+        <footer id="page-footer">
+            <div class="flex justify-center items-center gap-6 mb-4">
+                <a href="https://github.com" target="_blank" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/></svg></a>
+                <a href="https://linkedin.com" target="_blank" title="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+                <a href="#" download="Prerana_Resume.pdf" title="Download Resume"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg></a>
+            </div>
+            <p class="text-gray-500 text-sm">Designed & Built by Prerana</p>
+        </footer>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
